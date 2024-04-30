@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Modificar Perfil</h5>
+    </div>
+    <div class="card-body p-5">
+        <form #f="ngForm" >
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Nombre: </label>
+                <div class="col-sm-10">
+                    <input #nombre="ngModel"
+                        [ngClass]="nombre.invalid && (nombre.dirty || nombre.touched) ? 'is-invalid' : ''" type="text"
+                        name="nombre" class="form-control" required [(ngModel)]="modificarEmpleadoDTO.nombre" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Teléfono: </label>
+                <div class="col-sm-10">
+                    <input #telefono="ngModel"
+                        [ngClass]="telefono.invalid && (telefono.dirty || telefono.touched) ? 'is-invalid' : ''"
+                        type="text" name="telefono" class="form-control" required
+                        [(ngModel)]="modificarEmpleadoDTO.telefono" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Correo electrónico: </label>
+                <div class="col-sm-10">
+                    <input #correo="ngModel"
+                        [ngClass]="correo.invalid && (correo.dirty || correo.touched) ? 'is-invalid' : ''" type="text"
+                        name="correo" class="form-control" required [(ngModel)]="modificarEmpleadoDTO.correo" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Contraseña: </label>
+                <div class="col-sm-10">
+                    <input #password="ngModel"
+                        [ngClass]="password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''"
+                        type="password" name="password" class="form-control" required
+                        [(ngModel)]="modificarEmpleadoDTO.password" />
+                </div>
+            </div>
+
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Repetir contraseña: </label>
+                <div class="col-sm-10">
+                    <input #confirmaPassword="ngModel"
+                        [ngClass]="password.invalid && (confirmaPassword.dirty || confirmaPassword.touched) ? 'is-invalid' : ''"
+                        type="password" name="confirmaPassword" class="form-control" required
+                        [(ngModel)]="modificarEmpleadoDTO.confirmaPassword" />
+                </div>
+            </div>
+
+            <p *ngIf="!sonIguales()">Las contraseñas no coinciden</p>
+
+            <button class="btn bg-dark text-white" type="submit" [disabled]="camposVacios() || !f.form.valid || !sonIguales()" (click)="modificarPerfilEmpleado()">Modificar Perfil</button>
+
+            <app-alerta [alerta]="alerta"></app-alerta>
+
+
+        </form>
+    </div>
+</div>

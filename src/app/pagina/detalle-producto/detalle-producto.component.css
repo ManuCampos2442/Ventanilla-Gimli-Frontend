@@ -1,0 +1,32 @@
+p {
+    font-size: 1rem; /* Utilizando unidad relativa */
+}
+
+#contenedor {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    max-width: 800px; /* Ajusta el ancho máximo del contenedor según tu diseño */
+    flex-wrap: wrap; /* Permitirá que los elementos se envuelvan cuando no haya suficiente espacio */
+}
+
+
+
+#caja1, #caja2 {
+    width: calc(50% - 100px); /* Establece un ancho del 50% del contenedor con un margen de 50px entre las cajas */
+    margin: 50px; /* Ajusta el margen para centrar más las cajas */
+    display: flex;
+    flex-direction: column;
+    /* Centra el contenido verticalmente en cada caja */
+}
+
+@media (max-width: 768px) {
+    /* Estilos específicos para dispositivos con ancho máximo de 768px (tabletas, dispositivos móviles) */
+    #caja1, #caja2 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%; /* Establece el ancho al 100% para que ocupen todo el ancho en dispositivos móviles */
+        margin: 0; /* Elimina el margen entre las cajas */
+    }
+}

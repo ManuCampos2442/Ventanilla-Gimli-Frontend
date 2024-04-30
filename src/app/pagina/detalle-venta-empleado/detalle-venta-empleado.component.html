@@ -1,0 +1,49 @@
+<div class="card">
+
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-comments me-3"></i>Detalles de la Venta</h5>
+    </div>
+
+    <div class="card-body p-5">
+
+        <div id="contenedor">
+
+            <div id="caja1">
+                <h4>Codigo de la Venta</h4>
+                <p id="">{{detalleVentaEmpleadoDTO?.codigoVenta}}</p>
+
+                <h4>Fecha de la Venta</h4>
+                <p>{{detalleVentaEmpleadoDTO?.fechaVenta}}</p>
+
+                <h4>Hora de la Venta</h4>
+                <p>{{detalleVentaEmpleadoDTO?.horaVenta}}</p>
+
+
+                <h4>Nombre del Producto:</h4>
+                <p>{{detalleVentaEmpleadoDTO?.nombreProducto}}</p>
+
+                <h4>Codigo del Empleado</h4>
+                <p>{{detalleVentaEmpleadoDTO?.codigoEmpleado}}</p>
+
+            </div>
+
+            <div id="caja2">
+
+                <h4>Nombre del Cliente</h4>
+                <p>{{detalleVentaEmpleadoDTO?.nombreCliente}}</p>
+
+                <h4>Correo del Cliente</h4>
+                <p>{{detalleVentaEmpleadoDTO?.correoCliente}}</p>
+
+                <h4>Nombre del Producto</h4>
+                <p>{{detalleVentaEmpleadoDTO?.nombreProducto}}</p>
+
+                <h4>Codigó del Producto</h4>
+                <p>{{detalleVentaEmpleadoDTO?.codigoProducto}}</p>
+
+            </div>
+
+            <app-alerta [alerta]="alerta"></app-alerta>
+        </div>
+    </div>
+</div>

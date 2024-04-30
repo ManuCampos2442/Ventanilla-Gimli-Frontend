@@ -1,0 +1,98 @@
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-file-circle-plus me-2"></i>Crear Producto</h5>
+    </div>
+    <div class="card-body p-5">
+        <form #f="ngForm">
+
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Categoria: </label>
+                <div class="col-sm-10">
+                    <select name="categoria" required class="form-select" [(ngModel)]="registroProductoDTO.categoria"
+                        (change)="onCategoriaChange()">
+                        <option value="" selected>Seleccione una categoria</option>
+                        <option [value]="item" *ngFor="let item of categorias; index as i">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Subcategoria: </label>
+                <div class="col-sm-10">
+                    <select name="subcategoria" required class="form-select"
+                        [(ngModel)]="registroProductoDTO.subcategoria">
+                        <option value="" selected>Seleccione una subcategoria</option>
+                        <option [value]="item" *ngFor="let item of subcategoriasAux; index as i">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Nombre: </label>
+                <div class="col-sm-10">
+                    <input #nombre="ngModel"
+                        [ngClass]="nombre.invalid && (nombre.dirty || nombre.touched) ? 'is-invalid' : ''" type="text"
+                        name="nombre" class="form-control" required [(ngModel)]="registroProductoDTO.nombre" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Proveedor: </label>
+                <div class="col-sm-10">
+                    <input #proveedor="ngModel"
+                        [ngClass]="proveedor.invalid && (proveedor.dirty || proveedor.touched) ? 'is-invalid' : ''"
+                        type="text" name="proveedor" class="form-control" required
+                        [(ngModel)]="registroProductoDTO.proveedor" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Descripción: </label>
+                <div class="col-sm-10">
+                    <input #descripcion="ngModel"
+                        [ngClass]="descripcion.invalid && (descripcion.dirty || descripcion.touched) ? 'is-invalid' : ''"
+                        type="text" name="descripcion" class="form-control" required
+                        [(ngModel)]="registroProductoDTO.descripcion" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Precio: </label>
+                <div class="col-sm-10">
+                    <input #precio="ngModel"
+                        [ngClass]="descripcion.invalid && (precio.dirty || precio.touched) ? 'is-invalid' : ''"
+                        type="text" name="precio" class="form-control" required
+                        [(ngModel)]="registroProductoDTO.precio" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Cantidad Inicial: </label>
+                <div class="col-sm-10">
+                    <input #cantidad="ngModel"
+                        [ngClass]="cantidad.invalid && (cantidad.dirty || cantidad.touched) ? 'is-invalid' : ''"
+                        type="text" name="cantidad" class="form-control" required
+                        [(ngModel)]="registroProductoDTO.cantidad" />
+                </div>
+            </div>
+
+            <button class="btn bg-dark text-white"  type="submit" [disabled]="" (click)="registrar()">Crear Producto</button>
+
+            <hr>
+
+            <div class="mb-3 row">
+                <label class="col-sm-2 col-form-label">Lista de alcoholes disponibles:</label>
+                <div class="col-sm-10">
+                    <select name="subcategoria" required class="form-select">
+                        <option value="" selected>Seleccione un alcohol</option>
+                        <option [value]="item" *ngFor="let item of nombresAlcoholes; index as i">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <app-alerta [alerta]="alerta"></app-alerta>
+            
+        </form>
+    </div>
+</div>

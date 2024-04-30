@@ -1,0 +1,43 @@
+<div class="card">
+
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-comments me-3"></i>Detalles Producto</h5>
+    </div>
+
+    <div class="card-body p-5">
+
+        <div id="contenedor">
+
+            <div id="caja1">
+
+                <h4>Codigo del Producto</h4>
+                <p id="">{{detalleProductoDTO?.idProducto}}</p>
+
+                <h4>Nombre del Producto:</h4>
+                <p>{{detalleProductoDTO?.nombreProducto}}</p>
+
+                <h4>Descripción:</h4>
+                <p>{{detalleProductoDTO?.descripcion}}</p>
+
+                <h4>Precio</h4>
+                <p>{{detalleProductoDTO?.precio}}</p>
+
+                <h4>Cantidad</h4>
+                <p>{{detalleProductoDTO?.cantidad}}</p>
+
+            </div>
+
+            <div id="caja2">
+
+                <h4>Categoria</h4>
+                <p>{{detalleProductoDTO?.categoria}}</p>
+
+                <h4>Subcategoria</h4>
+                <p>{{detalleProductoDTO?.subcategoria}}</p>
+
+            </div>
+
+            <app-alerta [alerta]="alerta"></app-alerta>
+        </div>
+    </div>
+</div>

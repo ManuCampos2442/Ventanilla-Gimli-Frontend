@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'MiFuente';
+    src: url('../assets/webfonts/anirm.ttf');
+}
+
+
+.span-clase {
+    font-size: 19px !important /* Tamaño de la fuente en píxeles */
+  }
