@@ -1,0 +1,64 @@
+<div class="card">
+
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-comments me-3"></i>Detalles de la Cita</h5>
+    </div>
+
+    <div class="card-body p-5">
+
+        <div id="contenedor">
+
+            <div id="caja1">
+
+                <h4>Codigo de la Compra</h4>
+                <p id="">{{detalle?.codigo}}</p>
+
+                <h4>Nombre del Producto:</h4>
+                <p>{{detalle?.nombreProducto}}</p>
+
+                <h4>Descripción del Producto</h4>
+                <p>{{detalle?.descripcion}}</p>
+
+                <h4>Precio Unitario</h4>
+                <p>{{detalle?.precio}}</p>
+
+                <h4>Cantidad Comprada</h4>
+                <p>{{detalle?.cantidad}}</p>
+
+                <h4>Fecha de la Compra</h4>
+                <p>{{detalle?.fechaVenta}}</p>
+
+                <h4>Hora de la Compra</h4>
+                <p>{{detalle?.horaDeVenta}}</p>
+
+                <!--  <h4>Especialidad del Medico</h4> <p>{{detalleProductoDTO?.idProducto}}</p>  -->
+
+
+            </div>
+
+            <div id="caja2">
+
+                <h4>Nombre del Cliente</h4>
+                <p>{{detalle?.nombreCliente}}</p>
+
+                <h4>Correo del Cliente</h4>
+                <p>{{detalle?.correoCliente}}</p>
+
+                <h4>Telefono del Cliente</h4>
+                <p>{{detalle?.telefono}}</p>
+
+                <h4>Cambio a Recibir</h4>
+                <p>{{detalle?.devueltas}}</p>
+
+                <h4>Dirección del Cliente</h4>
+                <p>{{detalle?.direccion}}</p>
+
+                <h4>Codigo de la Venta</h4>
+                <p>{{detalle?.venta}}</p>
+
+            </div>
+
+            <app-alerta [alerta]="alerta"></app-alerta>
+        </div>
+    </div>
+</div>

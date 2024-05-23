@@ -18,10 +18,17 @@ import { EditarPerfilEmpleadoComponent } from './pagina/editar-perfil-empleado/e
 import { DetalleProductoComponent } from './pagina/detalle-producto/detalle-producto.component';
 import { EditarPerfilEmpleadoAdminComponent } from './pagina/editar-perfil-empleado-admin/editar-perfil-empleado-admin.component';
 import { DetalleVentaEmpleadoComponent } from './pagina/detalle-venta-empleado/detalle-venta-empleado.component';
+import { PoliticasSeguridadComponent } from './pagina/politicas-seguridad/politicas-seguridad.component';
+import { CondicionesComponent } from './pagina/condiciones/condiciones.component';
+import { DetalleCompraClienteComponent } from './pagina/detalle-compra-cliente/detalle-compra-cliente.component';
+import { ComprasRealizadasClienteComponent } from './pagina/compras-realizadas-cliente/compras-realizadas-cliente.component';
+
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "", component: PaginaInicioComponent },
+  { path: "politicas-seguridad", component: PoliticasSeguridadComponent },
+  { path: "condiciones", component: CondicionesComponent },
   { path: "registro", component: RegistroComponent },
   { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
   { path: "registro-empleado", component: RegistroEmpleadoComponent },
@@ -46,10 +53,16 @@ const routes: Routes = [
     }
   },
   {
-    path: "inicio-cliente", component: InicioClienteComponent, canActivate: [RolesGuard], data: {
+    path: "detalle-compra-cliente/:codigoCompra", component: DetalleCompraClienteComponent, canActivate: [RolesGuard], data: {
       expectedRole: ["cliente"]
     }
   },
+  {
+    path: "inicio-cliente", component: InicioClienteComponent, canActivate: [RolesGuard], data: {
+      expectedRole: ["cliente", "empleado", "admin"]
+    }
+  },
+
   {
     path: "registrar-compra-cliente", component: RegistrarCompraClienteComponent, canActivate: [RolesGuard], data: {
       expectedRole: ["cliente"]
@@ -57,6 +70,11 @@ const routes: Routes = [
   },
   {
     path: "detalle-producto/:codigoProducto", component: DetalleProductoComponent, canActivate: [RolesGuard], data: {
+      expectedRole: ["cliente", "empleado", "admin"]
+    }
+  },
+  {
+    path: "modificar-perfil-cliente", component: ModificarPerfilClienteComponent, canActivate: [RolesGuard], data: {
       expectedRole: ["cliente"]
     }
   },
@@ -66,8 +84,8 @@ const routes: Routes = [
     }
   },
   {
-    path: "modificar-perfil-empleado", component: EditarPerfilEmpleadoComponent, canActivate: [RolesGuard], data: {
-      expectedRole: ["empleado"]
+    path: "compras-realizadas-cliente", component: ComprasRealizadasClienteComponent, canActivate: [RolesGuard], data: {
+      expectedRole: ["cliente"]
     }
   },
   {

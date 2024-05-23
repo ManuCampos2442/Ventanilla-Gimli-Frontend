@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DetalleProductoDTO } from 'src/app/model/DetalleProductoDTO';
 import { Alerta } from 'src/app/model/alerta';
 import { ClienteService } from 'src/app/servicios/cliente.service';
+import { VentanillaService } from 'src/app/servicios/ventanilla.service';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -16,7 +17,7 @@ export class DetalleProductoComponent {
 
   codigoProducto = 0;
 
-  constructor(private route: ActivatedRoute, private clienteService: ClienteService) {
+  constructor(private route: ActivatedRoute, private ventanillaService: VentanillaService) {
 
     this.route.params.subscribe(params => {
       this.codigoProducto = params['codigoProducto']
@@ -31,7 +32,7 @@ export class DetalleProductoComponent {
   }
 
   public verDetalleRegistroProducto(){
-    this.clienteService.verDetalleProducto(this.codigoProducto).subscribe({
+    this.ventanillaService.verDetalleProducto(this.codigoProducto).subscribe({
       next: data => {
         this.detalleProductoDTO = data.respuesta;
       },

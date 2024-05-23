@@ -15,6 +15,8 @@ export class RegistroComponent {
 
   alerta!: Alerta;
 
+  termsAccepted = false; // Añade esta línea
+
   @ViewChild('f', { static: false }) registroForm!: NgForm;
 
   registroClienteDTO: RegistroClienteDTO;

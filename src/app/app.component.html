@@ -45,7 +45,7 @@
       </a>
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <!-- <li><a routerLink="" class="nav-link px-2 text-white">Inicio</a></li> -->
-        <li *ngIf="isLogged && rol == 'cliente'"><a routerLink="/inicio-cliente"
+        <li *ngIf="isLogged && rol == 'cliente' || rol == 'admin' || rol == 'empleado'"><a routerLink="/inicio-cliente"
             class="nav-link px-2 text-white">Productos</a></li>
         <li *ngIf="isLogged && rol == 'empleado'"><a routerLink="/gestion-productos"
             class="nav-link px-2 text-white">Gestion Productos</a></li>
@@ -63,6 +63,8 @@
             class="nav-link px-2 text-white">Hacer Compra</a></li>
         <li *ngIf="isLogged && rol == 'cliente'"><a routerLink="/modificar-perfil-cliente"
             class="nav-link px-2 text-white">Gestión Cuenta</a></li>
+        <li *ngIf="isLogged && rol == 'cliente'"><a routerLink="/compras-realizadas-cliente"
+            class="nav-link px-2 text-white">Compras Realizadas</a></li>
 
       </ul>
 

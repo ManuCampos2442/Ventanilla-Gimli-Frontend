@@ -36,5 +36,14 @@ export class VentanillaService {
   public registrarVentaEmpleado(venta: RegistroVentaEmpleadoDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.ventanillaURL}/registrar-venta`, venta);
   }
+  public listarProductos(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.ventanillaURL}/listar-productos`);
+  }
+  public verDetalleProducto(codigoProducto: number): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.ventanillaURL}/detalle-producto/${codigoProducto}`);
+  }
+  public filtrarProductosPorNombre(nombreProducto: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.ventanillaURL}/filtar-productos-nombre/${nombreProducto}`);
+}
 
 }

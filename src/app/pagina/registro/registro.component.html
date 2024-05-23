@@ -3,7 +3,7 @@
         <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Registro</h5>
     </div>
     <div class="card-body p-5">
-        <form #f="ngForm" >
+        <form #f="ngForm">
 
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre: </label>
@@ -65,13 +65,16 @@
                 </div>
             </div>
 
-            <p *ngIf="!sonIguales()">Las contraseñas no coinciden</p>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="termsAndConditionsCheck" [(ngModel)]="termsAccepted" name="terms">
+                <label class="form-check-label" for="termsAndConditionsCheck">
+                    Aceptar <a [routerLink]="['/politicas-seguridad']">Terminos</a> y <a [routerLink]="['/condiciones']">Condiciones</a>
+                </label>
+            </div><br>
 
-            <button class="btn bg-dark text-white" type="submit" [ngClass]="{'disabled-button': f.invalid || !sonIguales()}" (click)="registrar()">Registrarse</button>
-
-            <app-alerta [alerta]="alerta"></app-alerta>
-
-
+            <button class="btn bg-dark text-white" type="submit" [disabled]="f.invalid || !sonIguales() || !termsAccepted" (click)="registrar()">Registrarse</button>
+        
+            <!-- ... -->
         </form>
     </div>
 </div>

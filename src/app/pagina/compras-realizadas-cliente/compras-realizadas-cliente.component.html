@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-comments me-3"></i>Productos Disponibles</h5>
+    </div>
+
+    <div class="card-body p-5">
+
+        <p><strong>Registro de Agregación de Productos</strong></p>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Código Compra</th>
+                        <th>Nombre Producto</th>
+                        <th>Cantidad</th>
+                        <th>Fecha Compra</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr *ngFor="let item of itemCompra | slice:(page-1) * itemsPerPage : page * itemsPerPage">
+                        <td>
+                            <p>{{item.codigo}}</p>
+                        </td>
+                        <td>
+                            <p>{{item.nombreProducto}}</p>
+                        </td>
+                        <td>
+                            <p>{{item.cantidad}}</p>
+                        </td>
+                        <td>
+                            <p>{{item.fechaVenta}}</p>
+                        </td>
+                        <td><a routerLink="/detalle-compra-cliente/{{item.codigo}}"><i
+                                    class="fa-solid fa-circle-info me-2"></i>Ver detalle</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <ng-container *ngIf="totalCompras > 0">
+                    <li class="page-item" *ngFor="let i of totalPages()">
+                        <a class="page-link texto-negro" (click)="page = i + 1">{{i + 1}}</a>
+                    </li>
+                </ng-container>
+            </ul>
+        </nav>
+    </div>
+</div>

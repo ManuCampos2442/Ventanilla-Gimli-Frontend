@@ -23,6 +23,14 @@ import { DetalleProductoComponent } from './pagina/detalle-producto/detalle-prod
 import { EditarPerfilEmpleadoAdminComponent } from './pagina/editar-perfil-empleado-admin/editar-perfil-empleado-admin.component';
 import { DetalleVentaEmpleadoComponent } from './pagina/detalle-venta-empleado/detalle-venta-empleado.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PoliticasSeguridadComponent } from './pagina/politicas-seguridad/politicas-seguridad.component';
+import { CondicionesComponent } from './pagina/condiciones/condiciones.component';
+import { ComprasRealizadasClienteComponent } from './pagina/compras-realizadas-cliente/compras-realizadas-cliente.component';
+import { DetalleCompraClienteComponent } from './pagina/detalle-compra-cliente/detalle-compra-cliente.component';
+import { RouterModule } from '@angular/router'; // Asegúrate de importar esto
+
+
+
 
 @NgModule({
   declarations: [
@@ -34,7 +42,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     RegistroComponent,
     ModificarPerfilClienteComponent,
     InicioClienteComponent,
+    ComprasRealizadasClienteComponent,
     LoginComponent,
+    PoliticasSeguridadComponent,
     DetalleVentaEmpleadoComponent,
     EditarPerfilEmpleadoAdminComponent,
     DetalleProductoComponent,
@@ -52,7 +62,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     EditarPerfilEmpleadoComponent,
     DetalleProductoComponent,
     EditarPerfilEmpleadoAdminComponent,
-    DetalleVentaEmpleadoComponent
+    DetalleVentaEmpleadoComponent,
+    PoliticasSeguridadComponent,
+    CondicionesComponent,
+    ComprasRealizadasClienteComponent,
+    DetalleCompraClienteComponent,
   ],
   imports: [
     BrowserModule,

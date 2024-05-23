@@ -3,6 +3,7 @@ import { FiltroBusquedaDTO } from 'src/app/model/FiltroBusquedaDTO';
 import { ItemProductoDTO } from 'src/app/model/ItemProductoDTO';
 import { Alerta } from 'src/app/model/alerta';
 import { ClienteService } from 'src/app/servicios/cliente.service';
+import { VentanillaService } from 'src/app/servicios/ventanilla.service';
 
 @Component({
   selector: 'app-inicio-cliente',
@@ -18,10 +19,16 @@ export class InicioClienteComponent {
 
   alerta!: Alerta;
 
-  constructor(private clienteService: ClienteService) {
+  totalProductos: number = 0;
+  page: number = 1;
+  itemsPerPage: number = 4;
+
+  constructor(private ventanilla: VentanillaService) {
 
     this.itemProductoDTO = [];
     this.listarProductos();
+
+
 
     this.filtroBusquedaDTO = new FiltroBusquedaDTO();
 
@@ -29,11 +36,18 @@ export class InicioClienteComponent {
 
   }
 
+
+  totalPages(): number[] {
+    const totalPages = Math.ceil(this.totalProductos / this.itemsPerPage);
+    return Array(totalPages).fill(0).map((x, i) => i);
+  }
+
   public listarProductos() {
 
-    this.clienteService.listarProductos().subscribe({
+    this.ventanilla.listarProductos().subscribe({
       next: data => {
         this.itemProductoDTO = data.respuesta;
+        this.totalProductos = this.itemProductoDTO.length;
         console.log(this.itemProductoDTO);
       },
       error: error => {
@@ -43,16 +57,16 @@ export class InicioClienteComponent {
   }
 
   public filtrarProductosPorNombre() {
-    
+
     let nombreProducto = this.filtroBusquedaDTO.nombreProducto;
 
     if (nombreProducto == "") {
       this.alerta = { tipo: "danger", mensaje: "Ingrese el nombre de un producto" }
-    }else{
-      this.clienteService.filtrarProductosPorNombre(nombreProducto).subscribe({
+    } else {
+      this.ventanilla.filtrarProductosPorNombre(nombreProducto).subscribe({
         next: data => {
           this.productosPorNombre = data.respuesta;
-  
+
         },
         error: error => {
           this.alerta = { tipo: "danger", mensaje: error.error.respuesta }
@@ -61,7 +75,7 @@ export class InicioClienteComponent {
       });
     }
 
-    
+
   }
 
 

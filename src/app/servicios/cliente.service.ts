@@ -19,6 +19,9 @@ export class ClienteService {
     public listarProductos(): Observable<MensajeDTO> {
         return this.http.get<MensajeDTO>(`${this.userUrl}/listar-productos`);
     }
+    public comprasRealizadas(codigoCliente: number): Observable<MensajeDTO> {
+        return this.http.get<MensajeDTO>(`${this.userUrl}/lista-compras-cliente/${codigoCliente}`);
+    }
     public filtrarProductosPorNombre(nombreProducto: string): Observable<MensajeDTO> {
         return this.http.get<MensajeDTO>(`${this.userUrl}/filtar-productos-nombre/${nombreProducto}`);
     }
@@ -33,6 +36,9 @@ export class ClienteService {
     }
     public verDetalleProducto(codigoProducto: number): Observable<MensajeDTO> {
         return this.http.get<MensajeDTO>(`${this.userUrl}/detalle-producto/${codigoProducto}`);
+    }
+    public verDetalleCompraCliente(codigoCompra: number): Observable<MensajeDTO> {
+        return this.http.get<MensajeDTO>(`${this.userUrl}/detalle-compra-cliente/${codigoCompra}`);
     }
 
 }
