@@ -17,10 +17,10 @@ export class EmpleadoService {
   public obtenerClientePorCorreo(correo: string): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.userUrl}/obtener-codigo-cliente/${correo}`);
   }
- public agregarProducto(producto: AgregarProductoDTO): Observable<MensajeDTO> {
+  public agregarProducto(producto: AgregarProductoDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.userUrl}/agregar-producto`, producto);
-  } 
-  public listarRegistrosAgreacionProductos():Observable<MensajeDTO> {
+  }
+  public listarRegistrosAgreacionProductos(): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.userUrl}/listar-registros-agregacion-productos`);
   }
   public verDetalleRegistro(codigoRegistro: number): Observable<MensajeDTO> {

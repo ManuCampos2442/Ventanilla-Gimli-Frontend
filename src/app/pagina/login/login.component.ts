@@ -13,8 +13,7 @@ import { VentanillaService } from 'src/app/servicios/ventanilla.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-
-
+  
   loginDTO: LoginDTO;
   alerta!: Alerta;
   correo: string = '';

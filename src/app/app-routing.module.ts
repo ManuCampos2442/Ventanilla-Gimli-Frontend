@@ -90,7 +90,7 @@ const routes: Routes = [
   },
   {
     path: "registrar-venta-empleado", component: RegistrarVentaEmpleadoComponent, canActivate: [RolesGuard], data: {
-      expectedRole: ["empleado"]
+      expectedRole: ["empleado", "admin"]
     }
   },
   {

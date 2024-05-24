@@ -5,19 +5,19 @@
     <div class="card-body p-5">
 
         <div class="mb-3 row">
-            <label class="col-sm-2 col-form-label">Lista de Cedulas:</label>
+            <label class="col-sm-2 col-form-label">Lista de Empleados:</label>
             <div class="col-sm-10">
                 <select name="subcategoria" required class="form-select"
                     [(ngModel)]="modificarEmpleadoDTO.cedulaPrevia">
                     <option value="" selected>Seleccione cedula</option>
-                    <option [value]="item" *ngFor="let item of listaCedulas; index as i">{{item}}</option>
+                    <option [value]="item.cedulaEmpleado" *ngFor="let item of empleados.slice(1); index as i">{{item.cedulaEmpleado}} - {{item.nombreEmpleado}} - {{item.correoEmpleado}}</option>
                 </select>
             </div>
         </div>
     </div>
 </div>
 
-<br><br>
+
 
 <div class="card">
     <div class="card-header ps-5 pt-4 pb-4">

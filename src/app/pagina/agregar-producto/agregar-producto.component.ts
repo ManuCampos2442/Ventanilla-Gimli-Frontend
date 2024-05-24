@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AgregarProductoDTO } from 'src/app/model/AgregarProductoDTO';
 import { Alerta } from 'src/app/model/alerta';
+import { AdministradorService } from 'src/app/servicios/administrador.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { EmpleadoService } from 'src/app/servicios/empleado.service';
 import { TokenService } from 'src/app/servicios/token.service';
@@ -66,7 +67,7 @@ export class AgregarProductoComponent {
   onCategoriaChange() {
     switch (this.agregarProducto.categoria) {
       case 'ALCOHOL':
-       
+
         this.cargarListaAlcoholes();
         break;
       case 'DULCES':
@@ -80,7 +81,8 @@ export class AgregarProductoComponent {
   }
 
   constructor(private ventanillaService: VentanillaService,
-    private empleadoService: EmpleadoService, private tokenService: TokenService) {
+    private empleadoService: EmpleadoService, private adminService: AdministradorService,
+    private tokenService: TokenService) {
 
     this.agregarProducto = new AgregarProductoDTO();
 
@@ -104,7 +106,7 @@ export class AgregarProductoComponent {
     if (this.agregarProducto.cantidad <= 0) {
       this.alerta = { mensaje: "La cantidad del producto no puede ser menor o igual que cero", tipo: "danger" };
     }
-    else if(this.agregarProducto.categoria == "") {
+    else if (this.agregarProducto.categoria == "") {
       this.alerta = { mensaje: "Seleccione una categoria", tipo: "danger" }
     }
     else if (this.agregarProducto.cantidad >= 100) {
@@ -123,20 +125,31 @@ export class AgregarProductoComponent {
           break;
       }
 
-     
-
-      this.empleadoService.agregarProducto(this.agregarProducto).subscribe({
-        next: data => {
-          this.alerta = { tipo: "success", mensaje: "Producto agregado con exito" }
-          console.log(data);
-          // this.router.navigate(['/login']);
-        },
-        error: (error: { error: { respuesta: any; }; }) => {
-          this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
-          console.log(error);
-        }
-      });
-
+      if (this.tokenService.getRole() == 'empleado') {
+        this.empleadoService.agregarProducto(this.agregarProducto).subscribe({
+          next: data => {
+            this.alerta = { tipo: "success", mensaje: "Producto agregado con exito" }
+            console.log(data);
+            // this.router.navigate(['/login']);
+          },
+          error: (error: { error: { respuesta: any; }; }) => {
+            this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
+            console.log(error);
+          }
+        });
+      } else if(this.tokenService.getRole() == 'admin'){
+        this.adminService.agregarProducto(this.agregarProducto).subscribe({
+          next: data => {
+            this.alerta = { tipo: "success", mensaje: "Producto agregado con exito" }
+            console.log(data);
+            // this.router.navigate(['/login']);
+          },
+          error: (error: { error: { respuesta: any; }; }) => {
+            this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
+            console.log(error);
+          }
+        });
+      }
     }
   }
 }

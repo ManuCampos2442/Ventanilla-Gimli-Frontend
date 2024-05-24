@@ -7,3 +7,11 @@
 .span-clase {
     font-size: 19px !important /* Tamaño de la fuente en píxeles */
   }
+
+  .logo-margin {
+    margin-left: -60px;
+  }
+  
+  #derecha{
+    margin-right: -40px !important;
+  }

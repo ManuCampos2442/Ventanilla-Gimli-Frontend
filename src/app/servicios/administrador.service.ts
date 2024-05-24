@@ -30,6 +30,24 @@ export class AdministradorService {
   public eliminarCuentaEmpleado(codigo: string): Observable<MensajeDTO> {
     return this.http.delete<MensajeDTO>(`${this.userUrl}/eliminar-cuenta-empleado/${codigo}`);
   }
+  public listarEmpleadoCedulaNombre(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.userUrl}/lista-empleados-cedula-nombre`);
+  }
+  public agregarProducto(producto: AgregarProductoDTO): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.userUrl}/agregar-producto`, producto);
+  }
+  public listarRegistrosAgreacionProductos(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.userUrl}/listar-registros-agregacion-productos`);
+  }
+  public listaVentasEmpleados(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.userUrl}/listar-ventas-empleados`);
+  }
+  public verDetalleRegistro(codigoRegistro: number): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.userUrl}/detalle-registro/${codigoRegistro}`);
+  }
+  public verDetalleVentaEmpleado(codigoVenta: number): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.userUrl}/detalle-venta-empleado/${codigoVenta}`);
+  }
 
 
 }

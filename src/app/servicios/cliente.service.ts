@@ -16,14 +16,8 @@ export class ClienteService {
 
     constructor(private http: HttpClient) { }
 
-    public listarProductos(): Observable<MensajeDTO> {
-        return this.http.get<MensajeDTO>(`${this.userUrl}/listar-productos`);
-    }
     public comprasRealizadas(codigoCliente: number): Observable<MensajeDTO> {
         return this.http.get<MensajeDTO>(`${this.userUrl}/lista-compras-cliente/${codigoCliente}`);
-    }
-    public filtrarProductosPorNombre(nombreProducto: string): Observable<MensajeDTO> {
-        return this.http.get<MensajeDTO>(`${this.userUrl}/filtar-productos-nombre/${nombreProducto}`);
     }
     public registrarCompraCliente(compra: RegistroCompraClienteDTO): Observable<MensajeDTO> {
         return this.http.post<MensajeDTO>(`${this.userUrl}/registrar-compra`, compra);

@@ -44,6 +44,6 @@ export class VentanillaService {
   }
   public filtrarProductosPorNombre(nombreProducto: string): Observable<MensajeDTO> {
     return this.http.get<MensajeDTO>(`${this.ventanillaURL}/filtar-productos-nombre/${nombreProducto}`);
-}
+  }
 
 }

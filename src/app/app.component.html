@@ -3,9 +3,9 @@
     <div class="d-flex flex-wrap align-items-center justify-content-center
   justify-content-lg-start">
       <a routerLink="" class="d-flex align-items-center mb-2 mb-lg-0 text-white
-  text-decoration-none">
+  text-decoration-none logo-margin">
 
-        <svg width="64px" height="64px" viewBox="0 0 108 108" id="Layeri" xmlns="http://www.w3.org/2000/svg"
+        <svg width="30px" height="30px" viewBox="0 0 108 108" id="Layeri" xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink" fill="#ffffff">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -45,15 +45,15 @@
       </a>
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <!-- <li><a routerLink="" class="nav-link px-2 text-white">Inicio</a></li> -->
-        <li *ngIf="isLogged && rol == 'cliente' || rol == 'admin' || rol == 'empleado'"><a routerLink="/inicio-cliente"
+        <li *ngIf="isLogged && rol == 'cliente'"><a routerLink="/inicio-cliente"
             class="nav-link px-2 text-white">Productos</a></li>
-        <li *ngIf="isLogged && rol == 'empleado'"><a routerLink="/gestion-productos"
+        <li *ngIf="isLogged && rol == 'admin' || rol == 'empleado'"><a routerLink="/gestion-productos"
             class="nav-link px-2 text-white">Gestion Productos</a></li>
         <li *ngIf="isLogged && rol == 'admin'"><a routerLink="/crear-producto" class="nav-link px-2 text-white">Crear
             Producto</a></li>
-        <li *ngIf="isLogged && rol == 'empleado'"><a routerLink="/registrar-venta-empleado"
+        <li *ngIf="isLogged && rol == 'empleado' || rol == 'admin'"><a routerLink="/registrar-venta-empleado"
             class="nav-link px-2 text-white">Registrar Venta</a></li>
-        <li *ngIf="isLogged && rol == 'empleado'"><a routerLink="/agregar-producto"
+        <li *ngIf="isLogged && rol == 'empleado' || rol == 'admin'"><a routerLink="/agregar-producto"
             class="nav-link px-2 text-white">Agregar Producto</a></li>
         <li *ngIf="isLogged && rol == 'admin'"><a routerLink="/registro-empleado"
             class="nav-link px-2 text-white">Registrar Empleado</a></li>
@@ -81,8 +81,8 @@
       </ng-template>
 
 
-      <ng-template #logged>
-        <div class="text-end">
+      <ng-template #logged >
+        <div class="text-end" id="derecha">
           <label class="me-3 text-white">Hola {{nombre}}</label>
           <button type="button" (click)="logout()" class="btn btn-warning">Logout</button>
         </div>

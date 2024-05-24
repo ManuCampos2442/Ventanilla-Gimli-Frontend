@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ItemEmpleadoDTO } from 'src/app/model/ItemEmpleadoDTO';
 import { ModificarEmpleadoAdminDTO } from 'src/app/model/ModificarEmpleadoAdminDTO';
 import { ModificarEmpleadoDTO } from 'src/app/model/ModificarEmpleadoDTO';
 import { Alerta } from 'src/app/model/alerta';
@@ -15,12 +16,18 @@ export class EditarPerfilEmpleadoAdminComponent {
   alerta!: Alerta;
   listaCedulas: string[]
   alcoholSeleccionado: string = '';
+  empleados: ItemEmpleadoDTO[];
+  cedula: string = "";
 
   constructor(private adminService: AdministradorService) {
     this.listaCedulas = []
     this.modificarEmpleadoDTO = new ModificarEmpleadoAdminDTO();
 
+    this.empleados = [];
+
     this.obtenerCedulas();
+    this.listarEmpleadoCedulaNombre();
+
   }
 
   public obtenerCedulas() {
@@ -28,8 +35,18 @@ export class EditarPerfilEmpleadoAdminComponent {
       next: data => {
         console.log(this.listaCedulas);
         this.listaCedulas = data.respuesta;
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
 
-
+  public listarEmpleadoCedulaNombre() {
+    this.adminService.listarEmpleadoCedulaNombre().subscribe({
+      next: data => {
+        console.log(this.listaCedulas);
+        this.empleados = data.respuesta;
       },
       error: error => {
         console.log(error);
@@ -47,10 +64,6 @@ export class EditarPerfilEmpleadoAdminComponent {
 
   public modificarPerfilEmpleado() {
 
-    
-
-
-
     this.adminService.editarPerfilEmpleado(this.modificarEmpleadoDTO).subscribe({
       next: data => {
         this.alerta = { tipo: "success", mensaje: "Perfil modificado exitorsamente" }
@@ -64,19 +77,24 @@ export class EditarPerfilEmpleadoAdminComponent {
   }
 
   public eliminarCuenta() {
-    const confirmacion = confirm('¿Estás seguro de que quieres eliminar la cuenta?');
+    const confirmacion = confirm('¿Estás seguro de que quieres eliminar la cuenta? '
+     + this.modificarEmpleadoDTO.cedulaPrevia);
 
     if (confirmacion) {
       let codigo = this.modificarEmpleadoDTO.cedulaPrevia;
 
-      this.adminService.eliminarCuentaEmpleado(codigo).subscribe({
-        next: data => {
-          alert('Cuenta eliminada con éxito');
-        },
-        error: error => {
-          console.log(error);
-        }
-      });
+      if(codigo == ""){
+        this.alerta = { tipo: "danger", mensaje: "Primero seleccione la cuenta que desea eliminar."}
+      }else{
+        this.adminService.eliminarCuentaEmpleado(codigo).subscribe({
+          next: data => {
+            alert('Cuenta eliminada con éxito');
+          },
+          error: error => {
+            console.log(error);
+          }
+        });
+      }
     } else {
       // El usuario ha cancelado la operación
       console.log('Operación de eliminación de cuenta cancelada');
