@@ -14,7 +14,6 @@ import { RegistroEmpleadoComponent } from './pagina/registro-empleado/registro-e
 import { RegistrarCompraClienteComponent } from './pagina/registrar-compra-cliente/registrar-compra-cliente.component';
 import { ModificarPerfilClienteComponent } from './pagina/modificar-perfil-cliente/modificar-perfil-cliente.component';
 import { PaginaInicioComponent } from './pagina/pagina-inicio/pagina-inicio.component';
-import { EditarPerfilEmpleadoComponent } from './pagina/editar-perfil-empleado/editar-perfil-empleado.component';
 import { DetalleProductoComponent } from './pagina/detalle-producto/detalle-producto.component';
 import { EditarPerfilEmpleadoAdminComponent } from './pagina/editar-perfil-empleado-admin/editar-perfil-empleado-admin.component';
 import { DetalleVentaEmpleadoComponent } from './pagina/detalle-venta-empleado/detalle-venta-empleado.component';
@@ -57,6 +56,7 @@ const routes: Routes = [
       expectedRole: ["cliente"]
     }
   },
+
   {
     path: "inicio-cliente", component: InicioClienteComponent, canActivate: [RolesGuard], data: {
       expectedRole: ["cliente", "empleado", "admin"]

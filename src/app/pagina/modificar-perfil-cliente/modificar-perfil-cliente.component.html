@@ -1,4 +1,44 @@
 <div class="card">
+
+    <div class="card-header ps-5 pt-4 pb-4">
+        <h5 class="mb-0"><i class="fa-solid fa-comments me-3"></i>Datos del Cliente</h5>
+    </div>
+
+    <div class="card-body p-5">
+
+        <div id="contenedor">
+
+            <div id="caja1">
+
+                <h4>Codigo del Cliente</h4>
+                <p id="">{{detalleCliente.codigo}}</p>
+
+                <h4>Nombre del Cliente:</h4>
+                <p>{{detalleCliente.nombreCliente}}</p>
+
+                <h4>Correo del Cliente:</h4>
+                <p>{{detalleCliente.correoCliente}}</p>
+
+            </div>
+
+            <div id="caja2">
+               
+                <h4>Telefono del Cliente</h4>
+                <p>{{detalleCliente.telefono}}</p>
+
+                <h4>Dirección del Cliente</h4>
+                <p>{{detalleCliente.direccion}}</p>
+
+            </div>
+
+            <app-alerta [alerta]="alerta"></app-alerta>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-header ps-5 pt-4 pb-4">
         <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Modificar Perfil</h5>
     </div>

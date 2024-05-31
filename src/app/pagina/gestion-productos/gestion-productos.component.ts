@@ -13,23 +13,26 @@ import { VentanillaService } from 'src/app/servicios/ventanilla.service';
   styleUrls: ['./gestion-productos.component.css']
 })
 export class GestionProductosComponent {
-
   registroProductos: ItemRegistroProductoDTO[];
   ventasEmpleados: ItemVentaEmpleadoDTO[];
   itemProductoDTO: ItemProductoDTO[];
 
-  totalVentas: number = 0;
-  page: number = 1;
-  pageSize = 10;
-  itemsPerPage: number = 4;
-
+  // Paginación para productos
+  pageProductos: number = 1;
+  itemsPerPageProducto: number = 4;
   totalProductos: number = 0;
 
-  constructor(private empleadoService: EmpleadoService,
-    private ventanilla: VentanillaService, private adminService: AdministradorService,
+  // Paginación para ventas
+  pageVentas: number = 1;
+  itemsPerPageVentas: number = 4;
+  totalVentas: number = 0;
+
+  constructor(
+    private empleadoService: EmpleadoService,
+    private ventanilla: VentanillaService,
+    private adminService: AdministradorService,
     private tokenService: TokenService
   ) {
-
     this.itemProductoDTO = [];
     this.listarProductos();
 
@@ -38,22 +41,19 @@ export class GestionProductosComponent {
 
     this.ventasEmpleados = [];
     this.obtenerListaVentasEmpleados();
-    this.totalVentas = Math.ceil(this.ventasEmpleados.length / this.pageSize);
-
-
-
   }
 
-
-
-  totalPages(): number[] {
-    const totalPages = Math.ceil(this.totalVentas / this.itemsPerPage);
+  totalPagesProductos(): number[] {
+    const totalPages = Math.ceil(this.totalProductos / this.itemsPerPageProducto);
     return Array(totalPages).fill(0).map((x, i) => i);
   }
 
+  totalPagesVentas(): number[] {
+    const totalPages = Math.ceil(this.totalVentas / this.itemsPerPageVentas);
+    return Array(totalPages).fill(0).map((x, i) => i);
+  }
 
   public obtenerListaRegistros() {
-
     if (this.tokenService.getRole() == 'empleado') {
       this.empleadoService.listarRegistrosAgreacionProductos().subscribe({
         next: data => {
@@ -75,22 +75,20 @@ export class GestionProductosComponent {
         }
       });
     }
-
-
   }
 
   public obtenerListaVentasEmpleados() {
-
     if (this.tokenService.getRole() == 'empleado') {
       this.empleadoService.listaVentasEmpleados().subscribe({
         next: data => {
           this.ventasEmpleados = data.respuesta;
           this.totalVentas = this.ventasEmpleados.length;
+          console.log(this.ventasEmpleados)
         },
         error: error => {
           console.log(error);
         }
-      })
+      });
     } else if (this.tokenService.getRole() == 'admin') {
       this.adminService.listaVentasEmpleados().subscribe({
         next: data => {
@@ -100,12 +98,11 @@ export class GestionProductosComponent {
         error: error => {
           console.log(error);
         }
-      })
+      });
     }
   }
 
   public listarProductos() {
-
     this.ventanilla.listarProductos().subscribe({
       next: data => {
         this.itemProductoDTO = data.respuesta;
@@ -117,5 +114,4 @@ export class GestionProductosComponent {
       }
     });
   }
-
 }

@@ -28,31 +28,36 @@ export class RegistroComponent {
 
   }
 
+
+
   public registrar() {
 
-    this.authService.registrarCliente(this.registroClienteDTO).subscribe({
-      next: data => {
-        this.alerta = { tipo: "success", mensaje: data.respuesta }
-        this.registroForm.reset();
-        console.log(data);
-       // this.router.navigate(['/login']);
-      },
-      error: error => {
-        this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
-        //alert("Asegurate de llenar todos los campos primero")
-        console.log(error);
-      }
-    });
+    if (this.verificarCorreo(this.registroClienteDTO.correo)) {
 
-
-    // console.log(this.registroPacienteDTO);
-
-    // if(this.archivos != null && this.archivos.length > 0){
-    //   console.log(this.registroPacienteDTO);
-    //   }else{
-    //   console.log("Debe cargar una foto");
-    //   } 
+    } else {
+      this.authService.registrarCliente(this.registroClienteDTO).subscribe({
+        next: data => {
+          this.alerta = { tipo: "success", mensaje: data.respuesta }
+          this.registroClienteDTO = {
+            nombre: "",
+            telefono: "",
+            direccion: "",
+            correo: "",
+            password: "",
+            confirmaPassword: ""
+          }
+          console.log(data);
+          // this.router.navigate(['/login']);
+        },
+        error: error => {
+          this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
+          //alert("Asegurate de llenar todos los campos primero")
+          console.log(error);
+        }
+      });
+    }
   }
+
 
   getMaxDate(): string {
     // Obtener la fecha actual en formato YYYY-MM-DD
@@ -64,12 +69,34 @@ export class RegistroComponent {
     return `${year}-${month}-${day}`;
   }
 
+  public verificarCorreo(correo: string) {
+
+    const dominioGmail = "@gmail.com";
+    const dominioHotmail = "@hotmail.com";
+
+    if (correo.endsWith(dominioGmail) ||(correo.endsWith(dominioHotmail))) {
+      return false;
+    } else {
+      this.alerta = {mensaje: "El correo electronico debe ser @gmail.com por ejemplo", tipo: "danger"}
+      return true;
+    }
+
+  }
 
   public sonIguales(): boolean {
     return this.registroClienteDTO.password == this.registroClienteDTO.confirmaPassword;
   }
 
 
+  correoValido(correo: string): boolean {
+    return !/^\d/.test(correo); // Verifica que no comience con un número
+  }
+
+  direccionValida(direccion: string): boolean {
+    return !/^\d/.test(direccion); // Verifica que no comience con un número
+  }
+
 }
+
 
 

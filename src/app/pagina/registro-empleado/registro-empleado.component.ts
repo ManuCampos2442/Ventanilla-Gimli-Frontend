@@ -21,7 +21,7 @@ export class RegistroEmpleadoComponent {
   @ViewChild('f', { static: false }) registroForm!: NgForm;
 
   constructor(private authService: AuthService,
-    private router: Router, private administradorService: AdministradorService){
+    private router: Router, private administradorService: AdministradorService) {
 
     this.registroEmpleadoDTO = new RegistroEmpleadoDTO();
   }
@@ -30,22 +30,55 @@ export class RegistroEmpleadoComponent {
     return this.registroEmpleadoDTO.password == this.registroEmpleadoDTO.confirmaPassword;
   }
 
-  public registrar(){
-    
-    this.administradorService.registrarEmpleado(this.registroEmpleadoDTO).subscribe({
-      next: data => {
-        this.alerta = { tipo: "success", mensaje: data.respuesta }
-        this.registroForm.reset();
-        console.log(data);
-       // this.router.navigate(['/login']);
-      },
-      error: error => {
-        this.alerta = { mensaje: "Asegurate de llenar todos los campos primero", tipo: "danger" };
-        //alert("Asegurate de llenar todos los campos primero")
-        console.log(error);
-      }
-    });
-    
+  public registrar() {
+
+    if(this.verificarCorreo(this.registroEmpleadoDTO.correo)){
+    }else{
+      this.administradorService.registrarEmpleado(this.registroEmpleadoDTO).subscribe({
+        next: data => {
+          this.alerta = { tipo: "success", mensaje: data.respuesta }
+          this.registroForm.reset();
+          console.log(data);
+          // this.router.navigate(['/login']);
+        },
+        error: error => {
+          this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
+          //alert("Asegurate de llenar todos los campos primero")
+          console.log(error);
+        }
+      });
+    }
+  }
+
+  camposVacios(): boolean {
+    return !this.registroEmpleadoDTO.cedula ||
+      !this.registroEmpleadoDTO.correo ||
+      !this.registroEmpleadoDTO.nombre ||
+      !this.registroEmpleadoDTO.telefono ||
+      !this.registroEmpleadoDTO.password ||
+      !this.registroEmpleadoDTO.confirmaPassword ||
+      !this.sonIguales() ||
+      !this.registroForm.valid;
+      !this.correoValido(this.registroEmpleadoDTO.correo);
+  }
+
+
+  correoValido(correo: string): boolean {
+    return !/^\d/.test(correo); // Verifica que no comience con un número
+  }
+
+
+  public verificarCorreo(correo: string) {
+
+    const dominioGmail = "@gmail.com";
+    const dominioHotmail = "@hotmail.com";
+
+    if (correo.endsWith(dominioGmail) ||(correo.endsWith(dominioHotmail))) {
+      return false;
+    } else {
+      this.alerta = {mensaje: "El correo electronico debe ser @gmail.com por ejemplo", tipo: "danger"}
+      return true;
+    }
 
   }
 

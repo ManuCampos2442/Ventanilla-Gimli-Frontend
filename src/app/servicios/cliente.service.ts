@@ -34,5 +34,8 @@ export class ClienteService {
     public verDetalleCompraCliente(codigoCompra: number): Observable<MensajeDTO> {
         return this.http.get<MensajeDTO>(`${this.userUrl}/detalle-compra-cliente/${codigoCompra}`);
     }
+    public verDetalleDatosCliente(codigoCliente: number): Observable<MensajeDTO> {
+        return this.http.get<MensajeDTO>(`${this.userUrl}/ver-detalles-cliente/${codigoCliente}`);
+    }
 
 }

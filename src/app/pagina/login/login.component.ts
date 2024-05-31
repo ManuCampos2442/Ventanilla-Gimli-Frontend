@@ -13,7 +13,7 @@ import { VentanillaService } from 'src/app/servicios/ventanilla.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  
+
   loginDTO: LoginDTO;
   alerta!: Alerta;
   correo: string = '';
@@ -27,31 +27,35 @@ export class LoginComponent {
 
   public login() {
 
-    this.authService.login(this.loginDTO).subscribe({
-      next: (data: { respuesta: { token: any; }; }) => {
-        
-        this.tokenService.login(data.respuesta.token);
-      },
-      error: (error: { error: { respuesta: any; }; }) => {
-        this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
-      }
-    });
+    if (this.loginDTO.correo == "" && this.loginDTO.password == "") {
+      this.alerta = { mensaje: "Rellene los campos primero", tipo: "danger" };
+    } else {
+      this.authService.login(this.loginDTO).subscribe({
+        next: (data: { respuesta: { token: any; }; }) => {
+
+          this.tokenService.login(data.respuesta.token);
+        },
+        error: (error: { error: { respuesta: any; }; }) => {
+          this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
+        }
+      });
+    }
   }
-/* 
-  public enviarLinkRecuperacion(){
-    console.log('Correo electrónico ingresado:', this.correo);
-
-    this.ventanillaService.enviarLinkRecuperacion(this.correo).subscribe({
-      next: data => {
-        alert("Correo enviado con exito")
-        console.log(data);
-        this.router.navigate(['/']);
-      },
-      error: error => {
-        alert("Asegurese de ingresar un correo valido")
-        console.log(error);
-      }
-    });
-
-  } */
+  /* 
+    public enviarLinkRecuperacion(){
+      console.log('Correo electrónico ingresado:', this.correo);
+  
+      this.ventanillaService.enviarLinkRecuperacion(this.correo).subscribe({
+        next: data => {
+          alert("Correo enviado con exito")
+          console.log(data);
+          this.router.navigate(['/']);
+        },
+        error: error => {
+          alert("Asegurese de ingresar un correo valido")
+          console.log(error);
+        }
+      });
+  
+    } */
 }

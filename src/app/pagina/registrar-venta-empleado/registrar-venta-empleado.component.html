@@ -53,7 +53,7 @@
                 <div class="col-sm-10">
                     <input #cantidad="ngModel"
                         [ngClass]="cantidad.invalid && (cantidad.dirty || cantidad.touched) ? 'is-invalid' : ''"
-                        type="text" name="cantidad" class="form-control" required
+                        type="number" name="cantidad" class="form-control" required
                         [(ngModel)]="registroVentaEmpleadoDTO.cantidad" />
                 </div>
             </div>
@@ -90,7 +90,7 @@
             </div>
             
 
-            <button class="btn bg-dark text-white" type="submit" [disabled]="" (click)="registrar()">Registrar Venta</button>
+            <button class="btn bg-dark text-white" type="submit" [disabled]=""  (click)="registrar()" [disabled]="camposVacios()">Registrar Venta</button>
 
             <app-alerta [alerta]="alerta"></app-alerta>
             

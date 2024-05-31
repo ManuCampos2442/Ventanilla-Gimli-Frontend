@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DetalleDatosClienteDTO } from 'src/app/model/DetalleDatosClienteDTO';
 import { ModificarClienteDTO } from 'src/app/model/ModificarClienteDTO';
 import { Alerta } from 'src/app/model/alerta';
 import { ClienteService } from 'src/app/servicios/cliente.service';
@@ -16,10 +17,16 @@ export class ModificarPerfilClienteComponent {
   modificarClienteDTO: ModificarClienteDTO;
   alerta!: Alerta;
 
-  constructor(private tokenService: TokenService, 
+  detalleCliente: DetalleDatosClienteDTO;
+
+  constructor(private tokenService: TokenService,
     private clienteService: ClienteService, private router: Router) {
 
     this.modificarClienteDTO = new ModificarClienteDTO();
+
+    this.detalleCliente = new DetalleDatosClienteDTO();
+
+    this.verDetalleDatosCliente();
   }
 
   public sonIguales(): boolean {
@@ -42,6 +49,7 @@ export class ModificarPerfilClienteComponent {
     });
 
   }
+
 
   camposVacios(): boolean {
     return !this.modificarClienteDTO.nombre || !this.modificarClienteDTO.telefono || !this.modificarClienteDTO.direccion || !this.modificarClienteDTO.correo || !this.modificarClienteDTO.password || !this.modificarClienteDTO.confirmaPassword;
@@ -69,5 +77,21 @@ export class ModificarPerfilClienteComponent {
     }
   }
 
+
+  public verDetalleDatosCliente() {
+
+    this.clienteService.verDetalleDatosCliente(this.tokenService.getCodigo()).subscribe({
+      next: data => {
+        console.log(data.respuesta);
+        this.detalleCliente = data.respuesta;
+      },
+      error: error => {
+        this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
+        console.log(error);
+      }
+    })
+
+
+  }
 
 }

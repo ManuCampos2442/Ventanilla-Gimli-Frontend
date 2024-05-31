@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { ItemEmpleadoDTO } from 'src/app/model/ItemEmpleadoDTO';
 import { ModificarEmpleadoAdminDTO } from 'src/app/model/ModificarEmpleadoAdminDTO';
 import { ModificarEmpleadoDTO } from 'src/app/model/ModificarEmpleadoDTO';
@@ -89,6 +90,7 @@ export class EditarPerfilEmpleadoAdminComponent {
         this.adminService.eliminarCuentaEmpleado(codigo).subscribe({
           next: data => {
             alert('Cuenta eliminada con éxito');
+            location.reload();
           },
           error: error => {
             console.log(error);

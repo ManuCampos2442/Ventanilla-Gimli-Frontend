@@ -62,7 +62,7 @@
                 <div class="col-sm-10">
                     <input #precio="ngModel"
                         [ngClass]="descripcion.invalid && (precio.dirty || precio.touched) ? 'is-invalid' : ''"
-                        type="text" name="precio" class="form-control" required
+                        type="number" name="precio" class="form-control" required
                         [(ngModel)]="registroProductoDTO.precio" />
                 </div>
             </div>
@@ -72,27 +72,18 @@
                 <div class="col-sm-10">
                     <input #cantidad="ngModel"
                         [ngClass]="cantidad.invalid && (cantidad.dirty || cantidad.touched) ? 'is-invalid' : ''"
-                        type="text" name="cantidad" class="form-control" required
+                        type="number" name="cantidad" class="form-control" required
                         [(ngModel)]="registroProductoDTO.cantidad" />
                 </div>
             </div>
 
-            <button class="btn bg-dark text-white"  type="submit" [disabled]="" (click)="registrar()">Crear Producto</button>
+            <button class="btn bg-dark text-white" type="submit" [disabled]="" (click)="registrar()"
+                [disabled]="camposVacios()">Crear Producto</button>
 
             <hr>
 
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Lista de alcoholes disponibles:</label>
-                <div class="col-sm-10">
-                    <select name="subcategoria" required class="form-select">
-                        <option value="" selected>Seleccione un alcohol</option>
-                        <option [value]="item" *ngFor="let item of nombresAlcoholes; index as i">{{item}}</option>
-                    </select>
-                </div>
-            </div>
-
             <app-alerta [alerta]="alerta"></app-alerta>
-            
+
         </form>
     </div>
 </div>

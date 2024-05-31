@@ -161,13 +161,28 @@ export class RegistrarCompraClienteComponent {
       default:
         this.registroCompraClienteDTO.nombreProducto = this.gaseosaSeleccionada
         break;
-    } 
+    }
 
     this.clienteService.registrarCompraCliente(this.registroCompraClienteDTO).subscribe({
       next: data => {
         this.alerta = { tipo: "success", mensaje: "Venta agregado con éxito" }
         console.log(data);
-        // this.router.navigate(['/login']);
+        this.registroCompraClienteDTO = {
+          cantidad: 0,
+          nombreProducto: "",
+          direccion: "",
+          dinero: 0,
+          codigoCliente: this.tokenService.getCodigo()
+        }
+        this.registroProductoDTO = {
+          categoria: "",
+          descripcion: "",
+          cantidad: 0,
+          subcategoria: "",
+          nombre: "",
+          precio: 0,
+          proveedor: ""
+        }
       },
       error: (error: { error: { respuesta: any; }; }) => {
         this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
@@ -175,6 +190,23 @@ export class RegistrarCompraClienteComponent {
       }
     });
 
+  }
+
+  camposVacios(): boolean {
+    if (!this.registroCompraClienteDTO.cantidad || !this.registroCompraClienteDTO.dinero) {
+      return true;
+    }
+
+    switch (this.registroProductoDTO.categoria) {
+      case 'ALCOHOL':
+        return !this.alcoholSeleccionado;
+      case 'DULCES':
+        return !this.dulceSeleccionado;
+      case 'GASEOSA':
+        return !this.gaseosaSeleccionada;
+      default:
+        return true;
+    }
   }
 
   public obtenerCodigoClientePorCorreo() {
@@ -202,8 +234,8 @@ export class RegistrarCompraClienteComponent {
 
   public registrarVentaEmpleado() {
     //this.registroCompraClienteDTO.cantidad = 1700;
-  //  this.registroCompraClienteDTO.codigoCliente = this.codigoCliente; // Asignar el código del cliente obtenido correctamente
-   
+    //  this.registroCompraClienteDTO.codigoCliente = this.codigoCliente; // Asignar el código del cliente obtenido correctamente
+
   }
 
 

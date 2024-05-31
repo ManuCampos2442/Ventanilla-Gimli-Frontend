@@ -33,8 +33,6 @@ export class AgregarProductoComponent {
       next: data => {
         console.log(this.categorias);
         this.categorias = data.respuesta;
-
-
       },
       error: error => {
         console.log(error);
@@ -57,6 +55,19 @@ export class AgregarProductoComponent {
     this.ventanillaService.listarNombresDulces(this.agregarProducto.categoria).subscribe({
       next: data => {
         this.nombresDulces = data.respuesta;
+        console.log(this.nombresDulces)
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  public cargarListaGaseosas() {
+    this.ventanillaService.listarNombresGaseosas(this.agregarProducto.categoria).subscribe({
+      next: data => {
+        this.nombresGaseosas = data.respuesta;
+        console.log(this.nombresGaseosas)
       },
       error: error => {
         console.log(error);
@@ -73,9 +84,8 @@ export class AgregarProductoComponent {
       case 'DULCES':
         this.cargarListaDulces();
         break;
-      default:
-        // Si se selecciona otra categoría, mostrar todas las subcategorías
-
+      case 'GASEOSA':
+        this.cargarListaGaseosas();
         break;
     }
   }
@@ -137,7 +147,7 @@ export class AgregarProductoComponent {
             console.log(error);
           }
         });
-      } else if(this.tokenService.getRole() == 'admin'){
+      } else if (this.tokenService.getRole() == 'admin') {
         this.adminService.agregarProducto(this.agregarProducto).subscribe({
           next: data => {
             this.alerta = { tipo: "success", mensaje: "Producto agregado con exito" }
@@ -152,4 +162,22 @@ export class AgregarProductoComponent {
       }
     }
   }
+
+  camposVacios(): boolean {
+    if (!this.agregarProducto.cantidad || !this.agregarProducto.categoria) {
+      return true;
+    }
+
+    switch (this.agregarProducto.categoria) {
+      case 'ALCOHOL':
+        return !this.alcoholSeleccionado;
+      case 'DULCES':
+        return !this.dulceSeleccionado;
+      case 'GASEOSA':
+        return !this.gaseosaSeleccionada;
+      default:
+        return true;
+    }
+  }
+
 }

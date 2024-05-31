@@ -35,7 +35,17 @@ export class CrearProductoComponent {
     this.registroProductoDTO = new RegistroProductoDTO();
   }
 
-
+  public verificarPrecioCantidad(){
+    
+    if(this.registroProductoDTO.cantidad <= 0){
+      this.alerta = {mensaje: "La cantidad de producto no puede ser menor o igual a 0", tipo: "danger"};
+      return true;
+    }else if(this.registroProductoDTO.precio <= 0){
+      this.alerta = {mensaje: "El precio del producto no puede ser menor o igual a 0", tipo: "danger"};
+      return true;
+    }
+    return false;
+  }
 
   private cargarCategorias() {
     this.ventanillaService.listarCategorias().subscribe({
@@ -63,7 +73,7 @@ export class CrearProductoComponent {
     });
   }
 
-  private cargarListaAlcoholes(categoria : string) {
+  private cargarListaAlcoholes(categoria: string) {
     this.ventanillaService.listarNombresAlcoholes(categoria).subscribe({
       next: data => {
         console.log(this.subcategorias);
@@ -84,7 +94,7 @@ export class CrearProductoComponent {
       case 'DULCES':
         // Obtener el índice de 'FRITURA' en la lista de categorías
         const indiceFritura = this.categorias.indexOf('DULCES');
-       
+
         if (indiceFritura !== -1 && indiceFritura + 5 <= 11) {
           this.subcategoriasAux = this.subcategorias.slice(indiceFritura + 5, 17);
         } else {
@@ -101,29 +111,38 @@ export class CrearProductoComponent {
   }
 
   public registrar() {
-  
+
+    if(!this.verificarPrecioCantidad()){
       this.ventanillaService.registrarProducto(this.registroProductoDTO).subscribe({
         next: data => {
           alert("Registro Exitoso")
+          location.reload();
           console.log(data);
-         // this.router.navigate(['/login']);
+          // this.router.navigate(['/login']);
         },
         error: (error: { error: { respuesta: any; }; }) => {
           this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
           console.log(error);
         }
       });
-    } 
+    }
+   
+  }
 
-    // console.log(this.registroPacienteDTO);
+  camposVacios(): boolean {
+    return !this.registroProductoDTO.nombre || !this.registroProductoDTO.cantidad || !this.registroProductoDTO.categoria || !this.registroProductoDTO.descripcion || !this.registroProductoDTO.precio ||
+      !this.registroProductoDTO.proveedor || !this.registroProductoDTO.subcategoria;
+  }
 
-    // if(this.archivos != null && this.archivos.length > 0){
-    //   console.log(this.registroPacienteDTO);
-    //   }else{
-    //   console.log("Debe cargar una foto");
-    //   } 
+  // console.log(this.registroPacienteDTO);
+
+  // if(this.archivos != null && this.archivos.length > 0){
+  //   console.log(this.registroPacienteDTO);
+  //   }else{
+  //   console.log("Debe cargar una foto");
+  //   } 
+
   
-
 
 
 }

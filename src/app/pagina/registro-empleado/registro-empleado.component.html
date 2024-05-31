@@ -1,11 +1,11 @@
 <div class="card">
     <div class="card-header ps-5 pt-4 pb-4">
-        <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Registro Empleado</h5>
+      <h5 class="mb-0"><i class="fa-solid fa-user-plus me-3"></i>Registro Empleado</h5>
     </div>
     <div class="card-body p-5">
-        <form #f="ngForm" >
+      <form #f="ngForm">
 
-            <div class="mb-3 row">
+        <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre: </label>
                 <div class="col-sm-10">
                     <input #nombre="ngModel"
@@ -13,65 +13,65 @@
                         name="nombre" class="form-control" required [(ngModel)]="registroEmpleadoDTO.nombre" />
                 </div>
             </div>
-
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Cedula: </label>
-                <div class="col-sm-10">
-                    <input #cedula="ngModel"
-                        [ngClass]="cedula.invalid && (cedula.dirty || cedula.touched) ? 'is-invalid' : ''"
-                        type="text" name="cedula" class="form-control" required
-                        [(ngModel)]="registroEmpleadoDTO.cedula" />
-                </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Cedula: </label>
+          <div class="col-sm-10">
+            <input #cedula="ngModel"
+                   [ngClass]="{'is-invalid': cedula.invalid && (cedula.dirty || cedula.touched)}"
+                   type="number" name="cedula" class="form-control" required [(ngModel)]="registroEmpleadoDTO.cedula" />
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Teléfono: </label>
+          <div class="col-sm-10">
+            <input #telefono="ngModel"
+                   [ngClass]="{'is-invalid': telefono.invalid && (telefono.dirty || telefono.touched)}"
+                   type="number" name="telefono" class="form-control" required [(ngModel)]="registroEmpleadoDTO.telefono" />
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Correo electrónico: </label>
+          <div class="col-sm-10">
+            <input #correo="ngModel"
+                   [ngClass]="{'is-invalid': correo.invalid && (correo.dirty || correo.touched) || !correoValido(registroEmpleadoDTO.correo)}"
+                   type="text" name="correo" class="form-control" required [(ngModel)]="registroEmpleadoDTO.correo" />
+            <div *ngIf="!correoValido(registroEmpleadoDTO.correo) && (correo.dirty || correo.touched)" class="invalid-feedback">
+              El correo no puede comenzar con un número.
             </div>
-
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Teléfono: </label>
-                <div class="col-sm-10">
-                    <input #telefono="ngModel"
-                        [ngClass]="telefono.invalid && (telefono.dirty || telefono.touched) ? 'is-invalid' : ''"
-                        type="text" name="telefono" class="form-control" required
-                        [(ngModel)]="registroEmpleadoDTO.telefono" />
-                </div>
-            </div>
-
-
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Correo electrónico: </label>
-                <div class="col-sm-10">
-                    <input #correo="ngModel"
-                        [ngClass]="correo.invalid && (correo.dirty || correo.touched) ? 'is-invalid' : ''" type="text"
-                        name="correo" class="form-control" required [(ngModel)]="registroEmpleadoDTO.correo" />
-                </div>
-            </div>
-
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Contraseña: </label>
-                <div class="col-sm-10">
-                    <input #password="ngModel"
-                        [ngClass]="password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''"
-                        type="password" name="password" class="form-control" required
-                        [(ngModel)]="registroEmpleadoDTO.password" />
-                </div>
-            </div>
-
-
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Repetir contraseña: </label>
-                <div class="col-sm-10">
-                    <input #confirmaPassword="ngModel"
-                        [ngClass]="password.invalid && (confirmaPassword.dirty || confirmaPassword.touched) ? 'is-invalid' : ''"
-                        type="password" name="confirmaPassword" class="form-control" required
-                        [(ngModel)]="registroEmpleadoDTO.confirmaPassword" />
-                </div>
-            </div>
-
-            <p *ngIf="!sonIguales()">Las contraseñas no coinciden</p>
-
-            <button class="btn bg-dark text-white" type="submit" [ngClass]="{'disabled-button': f.invalid || !sonIguales()}" (click)="registrar()">Registrarse</button>
-
-            <app-alerta [alerta]="alerta"></app-alerta>
-
-
-        </form>
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Contraseña: </label>
+          <div class="col-sm-10">
+            <input #password="ngModel"
+                   [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}"
+                   type="password" name="password" class="form-control" required [(ngModel)]="registroEmpleadoDTO.password" />
+          </div>
+        </div>
+  
+        <div class="mb-3 row">
+          <label class="col-sm-2 col-form-label">Repetir contraseña: </label>
+          <div class="col-sm-10">
+            <input #confirmaPassword="ngModel"
+                   [ngClass]="{'is-invalid': confirmaPassword.invalid && (confirmaPassword.dirty || confirmaPassword.touched) || !sonIguales()}"
+                   type="password" name="confirmaPassword" class="form-control" required [(ngModel)]="registroEmpleadoDTO.confirmaPassword" />
+          </div>
+        </div>
+  
+        <p *ngIf="!sonIguales()">Las contraseñas no coinciden</p>
+  
+        <button class="btn bg-dark text-white" type="submit" 
+                [disabled]="camposVacios()" 
+                (click)="registrar()">
+          Registrarse
+        </button>
+  
+        <app-alerta [alerta]="alerta"></app-alerta>
+      </form>
     </div>
-</div>
+  </div>
+  

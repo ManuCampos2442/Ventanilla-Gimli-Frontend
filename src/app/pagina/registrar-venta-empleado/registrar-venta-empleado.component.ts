@@ -160,7 +160,7 @@ export class RegistrarVentaEmpleadoComponent {
       case 'DULCES':
         this.registroVentaEmpleadoDTO.nombreProducto = this.dulceSeleccionado
         break;
-      default:
+      case 'GASEOSA':
         this.registroVentaEmpleadoDTO.nombreProducto = this.gaseosaSeleccionada
         break;
     }
@@ -176,7 +176,7 @@ export class RegistrarVentaEmpleadoComponent {
     } else {
 
       // Llamar a obtenerClientePorCorreo() solo si el tipo de cliente no es "Casual"
-      this.empleadoService.obtenerClientePorCorreo(this.correoCliente).subscribe({
+      this.ventanillaService.obtenerClientePorCorreo(this.correoCliente).subscribe({
         next: data => {
           this.codigoCliente = data.respuesta;
           console.log(this.codigoCliente);
@@ -184,7 +184,7 @@ export class RegistrarVentaEmpleadoComponent {
         },
         error: error => {
           console.log(error);
-          this.alerta = { mensaje: error.error, tipo: "danger" };
+          this.alerta = { mensaje: "El correo ingresado no existe", tipo: "danger" };
         }
       });
     }
@@ -192,19 +192,60 @@ export class RegistrarVentaEmpleadoComponent {
 
 
   public registrarVentaEmpleado() {
+
+    const fechaActual: string = new Date().toISOString().split('T')[0];
+    const horaActual: string = new Date().toLocaleTimeString('en-US', { hour12: false });
+
     this.registroVentaEmpleadoDTO.precioUnitario = 1700;
     this.registroVentaEmpleadoDTO.codigoCliente = this.codigoCliente; // Asignar el código del cliente obtenido correctamente
     this.ventanillaService.registrarVentaEmpleado(this.registroVentaEmpleadoDTO).subscribe({
       next: data => {
         this.alerta = { tipo: "success", mensaje: "Venta agregado con éxito" }
         console.log(data);
-        // this.router.navigate(['/login']);
+        this.registroVentaEmpleadoDTO = {
+          cantidad: 0,
+          codigoCliente: this.codigoCliente,
+          codigoEmpleado: this.tokenService.getCodigo(),
+          dinero: 0,
+          fechaVenta: fechaActual,
+          horaDeVenta: horaActual,
+          nombreProducto: "",
+          precioUnitario: 0
+        }
+        this.correoCliente = "";
+        this.registroProductoDTO = {
+          categoria: "",
+          descripcion: "",
+          cantidad: 0,
+          subcategoria: "",
+          nombre: "",
+          precio: 0,
+          proveedor: ""
+        }
       },
       error: (error: { error: { respuesta: any; }; }) => {
         this.alerta = { mensaje: error.error.respuesta, tipo: "danger" };
         console.log(error);
       }
     });
+  }
+
+  camposVacios(): boolean {
+    if (!this.registroVentaEmpleadoDTO.cantidad || !this.registroVentaEmpleadoDTO.dinero ||
+      !this.tipoCliente || !this.registroProductoDTO.categoria) {
+      return true;
+    }
+
+    switch (this.registroProductoDTO.categoria) {
+      case 'ALCOHOL':
+        return !this.alcoholSeleccionado;
+      case 'DULCES':
+        return !this.dulceSeleccionado;
+      case 'GASEOSA':
+        return !this.gaseosaSeleccionada;
+      default:
+        return true;
+    }
   }
 
 

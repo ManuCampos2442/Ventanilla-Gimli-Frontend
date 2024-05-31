@@ -27,10 +27,7 @@ import { PoliticasSeguridadComponent } from './pagina/politicas-seguridad/politi
 import { CondicionesComponent } from './pagina/condiciones/condiciones.component';
 import { ComprasRealizadasClienteComponent } from './pagina/compras-realizadas-cliente/compras-realizadas-cliente.component';
 import { DetalleCompraClienteComponent } from './pagina/detalle-compra-cliente/detalle-compra-cliente.component';
-import { RouterModule } from '@angular/router'; // Asegúrate de importar esto
-
-
-
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -66,6 +63,7 @@ import { RouterModule } from '@angular/router'; // Asegúrate de importar esto
     PoliticasSeguridadComponent,
     CondicionesComponent,
     ComprasRealizadasClienteComponent,
+    DetalleCompraClienteComponent,
     DetalleCompraClienteComponent,
   ],
   imports: [

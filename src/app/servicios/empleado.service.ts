@@ -14,9 +14,6 @@ export class EmpleadoService {
 
   constructor(private http: HttpClient) { }
 
-  public obtenerClientePorCorreo(correo: string): Observable<MensajeDTO> {
-    return this.http.get<MensajeDTO>(`${this.userUrl}/obtener-codigo-cliente/${correo}`);
-  }
   public agregarProducto(producto: AgregarProductoDTO): Observable<MensajeDTO> {
     return this.http.post<MensajeDTO>(`${this.userUrl}/agregar-producto`, producto);
   }

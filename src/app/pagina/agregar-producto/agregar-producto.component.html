@@ -37,12 +37,12 @@
                 </div>
             </div>
 
-            <div class="mb-3 row" *ngIf="agregarProducto.categoria === 'GASEOSAS'">
+            <div class="mb-3 row" *ngIf="agregarProducto.categoria === 'GASEOSA'">
                 <label class="col-sm-2 col-form-label">Lista de gaseosas disponibles:</label>
                 <div class="col-sm-10">
                     <select name="subcategoria" required class="form-select" [(ngModel)]="gaseosaSeleccionada">
                         <option value="" selected>Seleccione una gaseosa</option>
-                        <option [value]="item" *ngFor="let item of nombresAlcoholes; index as i">{{item}}</option>
+                        <option [value]="item" *ngFor="let item of nombresGaseosas; index as i">{{item}}</option>
                     </select>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <button class="btn bg-dark text-white" type="submit" [disabled]="" (click)="registrar()">Agregar</button>
+            <button class="btn bg-dark text-white" type="submit" [disabled]="" (click)="registrar()" [disabled]="camposVacios()">Agregar</button>
 
             <app-alerta [alerta]="alerta"></app-alerta>
 
